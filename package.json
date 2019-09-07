@@ -1,0 +1,19 @@
+{
+  "name": "geocoder-api",
+  "version": "0.0.1",
+  "description": "Geocoder API.",
+  "main": "server.js",
+  "author": "Sooraj",
+  "type": "module",
+  "scripts": {
+    "start": "node --experimental-modules server.js "
+  },
+  "dependencies": {
+    "axios": "^0.19.0",
+    "body-parser": "^1.18.2",
+    "express": "^4.10.8",
+    "method-override": "^2.3.10",
+    "mongoose": "4.10.8",
+    "morgan": "^1.9.0"
+  }
+}
