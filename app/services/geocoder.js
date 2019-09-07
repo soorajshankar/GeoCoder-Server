@@ -1,7 +1,7 @@
 module.exports = {
   parseResults: (results=[]) =>
     results.map(i => ({
-      _id: i.place_id,
+      // _id: i.place_id,
       name: i.formatted_address,
       ...i.geometry.location
     }))

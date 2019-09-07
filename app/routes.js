@@ -17,7 +17,6 @@ function getAddresses(address, res) {
     .get(config.getURL(address))
     .then((axiosResponse, err) => {
       if (axiosResponse.data.status === "OK") {
-        console.log("TEST", JSON.stringify(axiosResponse.data), err);
         const data = geocoder.parseResults(axiosResponse.data.results);
         res.json({ success: true, data });
       } else if (axiosResponse.data.status === "ZERO_RESULTS") {
