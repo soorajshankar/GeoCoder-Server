@@ -2,7 +2,6 @@ var request = require("../services/request-client");
 var config = require("../../config/cloudConfig");
 var geocoder = require("../services/geocoder");
 module.exports.getAddresses = ({ params: { _address, _country } }, res) => {
-  console.log(_address, _country);
   if (!(_address || _country)) {
     res.status(500);
     res.render("error", { error: "Please check your request parameters" });
