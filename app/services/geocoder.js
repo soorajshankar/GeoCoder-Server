@@ -1,7 +1,11 @@
 module.exports = {
-  parseResults: (results=[]) =>
+  parseResults: (
+    results = [],
+    country = "DE" //defaulting to germany but no chance of getting this :)
+  ) =>
     results.map(i => ({
       // _id: i.place_id,
+      country: country,
       name: i.formatted_address,
       ...i.geometry.location
     }))

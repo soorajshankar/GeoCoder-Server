@@ -11,13 +11,16 @@ function getMarkers(res) {
     res.json(markers); // return all markers in JSON format
   });
 }
-function getAddresses(address, res) {
+function getAddresses({ _address, _country }, res) {
   console.log(config);
   request
-    .get(config.getURL(address))
+    .get(config.getURL(_address, _country))
     .then((axiosResponse, err) => {
       if (axiosResponse.data.status === "OK") {
-        const data = geocoder.parseResults(axiosResponse.data.results);
+        const data = geocoder.parseResults(
+          axiosResponse.data.results,
+          _country
+        );
         res.json({ success: true, data });
       } else if (axiosResponse.data.status === "ZERO_RESULTS") {
         res.json({ success: false, data: [] });
@@ -46,6 +49,7 @@ module.exports = function(app) {
     Marker.create(
       {
         name: req.body.name,
+        country: req.body.country,
         lat: req.body.lat || Number(0),
         lng: req.body.lng || Number(0)
       },
@@ -71,9 +75,9 @@ module.exports = function(app) {
     });
   });
   // delete a marker
-  app.get("/api/geocoder/:_address", function(req, res) {
+  app.get("/api/geocoder/:_address/:_country", function(req, res) {
     console.log(req.params);
-    getAddresses(req.params._address, res);
+    getAddresses(req.params, res);
   });
 
   // application -------------------------------------------------------------
