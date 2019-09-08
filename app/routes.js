@@ -12,7 +12,6 @@ function getMarkers(res) {
   });
 }
 function getAddresses({ _address, _country }, res) {
-  console.log(config);
   request
     .get(config.getURL(_address, _country))
     .then((axiosResponse, err) => {
@@ -31,7 +30,7 @@ function getAddresses({ _address, _country }, res) {
     })
     .catch(err => {
       res.send(geocoder.parseResults());
-      console.log("err", err);
+      console.error("err", err);
     });
 }
 
@@ -76,7 +75,6 @@ module.exports = function(app) {
   });
   // delete a marker
   app.get("/api/geocoder/:_address/:_country", function(req, res) {
-    console.log(req.params);
     getAddresses(req.params, res);
   });
 
