@@ -3,6 +3,9 @@ var request = require("../services/request-client");
 var config = require("../../config/cloudConfig");
 var geocoder = require("../services/geocoder");
 module.exports.getMarkers = (req, res) => {
+  getAllMarkers(res);
+};
+const getAllMarkers = res => {
   Marker.find(function(err, markers) {
     // if there is an error retrieving, send the error. nothing after res.send(err) will execute
     if (err) {
@@ -45,7 +48,7 @@ module.exports.addMarker = (req, res) => {
     (err, marker) => {
       if (err) res.send(err);
       // get and return all the markers after you create another
-      this.getMarkers(req, res);
+      getAllMarkers(res);
     }
   );
 };
@@ -53,12 +56,12 @@ module.exports.editMarker = function(req, res) {
   const { __v, _id, ...update } = req.body;
   Marker.update({ _id: req.params._id }, update, { upsert: true }, err => {
     if (err) res.send(err);
-    this.getMarkers(req, res);
+    getAllMarkers(res);
   });
 };
 module.exports.deleteMarker = function(req, res) {
   Marker.remove({ _id: req.params._id }, (err, marker) => {
     if (err) res.send(err);
-    this.getMarkers(req, res);
+    getAllMarkers(res);
   });
 };
